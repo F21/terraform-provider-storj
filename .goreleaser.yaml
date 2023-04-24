@@ -13,18 +13,11 @@ builds:
     ldflags:
       - '-s -w -X main.version={{.Version}} -X main.commit={{.Commit}}'
     goos:
-      - freebsd
-      - windows
       - linux
       - darwin
     goarch:
       - amd64
-      - '386'
-      - arm
       - arm64
-    ignore:
-      - goos: darwin
-        goarch: '386'
     binary: '{{ .ProjectName }}_v{{ .Version }}'
 
 archives:
@@ -50,9 +43,14 @@ signs:
       - "${artifact}"
 
 release:
+  github:
+    owner: F21
+    name: terraform-provider-storj
   extra_files:
     - glob: 'terraform-registry-manifest.json'
       name_template: '{{ .ProjectName }}_{{ .Version }}_manifest.json'
 
 changelog:
   skip: true
+
+project_name: terraform-provider-storj
